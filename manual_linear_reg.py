@@ -1,10 +1,8 @@
 import numpy as np
 import matplotlib.pyplot as plt
 import torch
-from numpy import outer
 
 print(torch.cuda.is_available())
-
 
 def visualize_relation(x, y):
     """
@@ -22,7 +20,7 @@ def np_to_torch(x, y):
     return x, y
 
 
-def main(x, y):
+def train_model(x, y):
     input_size = 1
     hidden_size = 1
     output_size = 1
@@ -32,7 +30,7 @@ def main(x, y):
     w1 = torch.rand(input_size, hidden_size, requires_grad=True)
     b = torch.rand(hidden_size, output_size, requires_grad=True)
 
-    for iter in range(1, 5001):
+    for iter in range(1, 7001):
         y_pred = x_train * w1 + b
         loss = (y_pred - y_train).pow(2).sum()
         if iter % 100 == 0:
@@ -45,7 +43,12 @@ def main(x, y):
             w1.grad.zero_()
             b.grad.zero_()
     print(loss, w1, b)
+    return w1, b
 
+
+def predict_nn(x, weight, bias):
+    print("Predictions ..")
+    return x.mm(weight).add(bias).detach().numpy()
 
 
 if __name__ == "__main__":
@@ -72,4 +75,12 @@ if __name__ == "__main__":
                 dtype=np.float32
     )
 
-    main(x_train, y_train)
+    # train model
+    w, b = train_model(x_train, y_train)
+
+    #predict
+    x_test = torch.tensor([
+                            [2.6]]
+                         )
+    y_pred = predict_nn(x_test, w, b)
+    print(x_test, y_pred)
