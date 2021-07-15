@@ -50,7 +50,6 @@ def predict_nn(x, weight, bias):
     print("Predictions ..")
     return x.mm(weight).add(bias).detach().numpy()
 
-
 if __name__ == "__main__":
 
     x_train = np.array(
