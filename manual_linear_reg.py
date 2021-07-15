@@ -47,6 +47,7 @@ def train_model(x, y):
 
 
 def predict_nn(x, weight, bias):
+    
     print("Predictions ..")
     return x.mm(weight).add(bias).detach().numpy()
 
