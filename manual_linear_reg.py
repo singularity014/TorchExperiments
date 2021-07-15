@@ -47,7 +47,6 @@ def main(x, y):
     print(loss, w1, b)
 
 
-
 if __name__ == "__main__":
 
     x_train = np.array(
