@@ -5,6 +5,7 @@ from torch.optim import SGD
 
 print(torch.cuda.is_available())
 
+
 def visualize_relation(x, y):
     """
     For visualising the relation b/w the
